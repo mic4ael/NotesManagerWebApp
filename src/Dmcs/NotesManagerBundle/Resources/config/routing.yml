@@ -1,0 +1,3 @@
+dmcs_notes_manager_homepage:
+    path:     /hello/{name}
+    defaults: { _controller: DmcsNotesManagerBundle:Default:index }

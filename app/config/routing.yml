@@ -1,0 +1,4 @@
+dmcs_notes_manager:
+    resource: "@DmcsNotesManagerBundle/Resources/config/routing.yml"
+    prefix:   /
+
