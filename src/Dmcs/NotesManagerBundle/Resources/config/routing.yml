@@ -1,3 +1,7 @@
 dmcs_notes_manager_homepage:
-    path:     /hello/{name}
+    path:     /
     defaults: { _controller: DmcsNotesManagerBundle:Default:index }
+
+api_main:
+    path: /api/{page}
+    defaults: {_controller: DmcsNotesManagerBundle:Api:route, page: index }

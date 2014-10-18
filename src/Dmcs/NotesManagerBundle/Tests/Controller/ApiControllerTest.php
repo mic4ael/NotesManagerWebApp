@@ -4,6 +4,6 @@ namespace Dmcs\NotesManagerBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class RegistrationControllerControllerTest extends WebTestCase
+class ApiControllerTest extends WebTestCase
 {
 }
