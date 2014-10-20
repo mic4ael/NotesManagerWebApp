@@ -16,9 +16,18 @@ class ApiController extends Controller
     public function routeAction($method) 
     {
         $response = new JsonResponse();
+        if (!in_array($method, $this->allowedMethods))
+        {
+            return $response->setData(array(
+                'message' => 'Access Denied',
+                'success' => false
+            ));
+        }
+
         $userService = $this->get('notes_manager.user.service');
         $response->setData(array(
-            'method' => call_user_func(array($userService, $method)),
+            'message' => call_user_func(array($userService, $method)),
+            'success' => true
         ));
 
         return $response;
