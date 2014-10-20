@@ -7,15 +7,8 @@ use Dmcs\NotesManagerBundle\Entity\UserRepository;
 
 use Doctrine\ORM\EntityManager;
 
-class UserService 
+class UserService extends BaseService
 {
-    protected $em;
-
-    public function __construct(EntityManager $em) 
-    {
-        $this->em = $em;
-    }
-
     public function registerUser() 
     {
         $user = new User();

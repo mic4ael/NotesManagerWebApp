@@ -16,7 +16,7 @@ class ApiController extends Controller
     public function routeAction($method) 
     {
         $response = new JsonResponse();
-        $userService = $this->get('notes_manager.user.servce');
+        $userService = $this->get('notes_manager.user.service');
         $response->setData(array(
             'method' => call_user_func(array($userService, $method)),
         ));

@@ -1,4 +1,4 @@
 services:
-    notes_manager.user.servce:
+    notes_manager.user.service:
         class: Dmcs\NotesManagerBundle\Services\UserService
         arguments: [@doctrine.orm.entity_manager]
