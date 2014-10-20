@@ -34,7 +34,7 @@ class User implements UserInterface, \Serializable
      *
      * @ORM\Column(name="isActive", type="boolean")
      */
-    private $isActive;
+    private $isActive = true;
 
     /**
      * @var string
@@ -155,17 +155,27 @@ class User implements UserInterface, \Serializable
 
     public function serialize()
     {
-        
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+        ));
     }
 
     public function unserialize($serialized)
     {
-
+        list(
+            $this->id,
+            $this->username,
+            $this->password,
+        ) = unserialize($serialized);
     }
 
     public function getRoles()
     {
-
+        return array(
+            'ROLE_USER'
+        );
     }
 
     public function getSalt()
@@ -175,6 +185,6 @@ class User implements UserInterface, \Serializable
 
     public function eraseCredentials()
     {
-        
+
     }
 }

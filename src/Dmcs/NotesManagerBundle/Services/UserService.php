@@ -12,7 +12,10 @@ class UserService extends BaseService
     public function registerUser() 
     {
         $user = new User();
-        $user->setName('mic4ael');
+        $user->setUsername('mic4ael')
+             ->setIsActive(true)
+             ->setPassword('test')
+             ->setEmail('crossner90@gmail.com');
 
         $this->em->persist($user);
         $this->em->flush();

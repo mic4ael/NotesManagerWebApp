@@ -16,6 +16,7 @@ class ApiController extends Controller
     public function routeAction($method) 
     {
         $response = new JsonResponse();
+        $params = $this->getRequest()->request->all();
         if (!in_array($method, $this->allowedMethods))
         {
             return $response->setData(array(
