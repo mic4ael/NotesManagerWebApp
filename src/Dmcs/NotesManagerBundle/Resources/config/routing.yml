@@ -3,5 +3,5 @@ dmcs_notes_manager_homepage:
     defaults: { _controller: DmcsNotesManagerBundle:Default:index }
 
 api_main:
-    path: /api/{page}
-    defaults: {_controller: DmcsNotesManagerBundle:Api:route, page: index }
+    path: /api/{method}
+    defaults: {_controller: DmcsNotesManagerBundle:Api:route, method: index }

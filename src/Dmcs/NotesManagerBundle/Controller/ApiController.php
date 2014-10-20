@@ -3,17 +3,24 @@
 namespace Dmcs\NotesManagerBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 
 class ApiController extends Controller
 {
     private $allowedMethods = array(
-        'login',
-        'register',
+        'loginUser',
+        'registerUser',
         'getNote'
     );
 
-    public function routeAction($page) 
+    public function routeAction($method) 
     {
-        return array();
+        $response = new JsonResponse();
+        $userService = $this->get('notes_manager.user.servce');
+        $response->setData(array(
+            'method' => call_user_func(array($userService, $method)),
+        ));
+
+        return $response;
     }
 }
