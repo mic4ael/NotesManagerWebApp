@@ -15,12 +15,21 @@ class AuthController extends Controller
 
         $form = $this->createForm(new RegistrationType(), new Registration());
         $form->handleRequest($this->getRequest());
-        
-        if ($form->isValid()) {
-            $userService->registerUser($form->getData());
-        }
 
-        return $this->redirect($this->generateUrl('dmcs_notes_manager_homepage'));
+        if ($form->isValid()) {
+            $isUnique = $userService->registerUser($form->getData());
+            if (!$isUnique) {
+                return $this->forward('DmcsNotesManagerBundle:Default:index', array(
+                    'isUnique' => false,
+                ));
+            }
+
+            return $this->redirect($this->generateUrl('dmcs_notes_manager_homepage'));
+        } else {
+            return $this->forward('DmcsNotesManagerBundle:Default:index', array(
+                'passwordsNotValid' => true,
+            ));
+        }
     }
 
     public function loginAction()

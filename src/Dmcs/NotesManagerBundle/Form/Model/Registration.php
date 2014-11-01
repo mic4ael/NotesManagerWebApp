@@ -3,7 +3,12 @@
 namespace Dmcs\NotesManagerBundle\Form\Model;
 
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
+/*
+ * @UniqueEntity(fields="username", message="This username is already taken")
+ * @UniqueEntity(fields="email", message="This email is already taken")
+ */
 class Registration
 {
     /*

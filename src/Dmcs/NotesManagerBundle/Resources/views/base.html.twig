@@ -16,7 +16,9 @@
                 {% endblock %}
             </div>
         </div>
-        <script src="{{ asset("bundles/dmcsnotesmanager/js/jquery-2.1.1.js") }}"></script>
-        <script src="{{ asset("bundles/dmcsnotesmanager/js/bootstrap.js") }}"></script>
+        {% block javascripts %}
+            <script src="{{ asset("bundles/dmcsnotesmanager/js/jquery-2.1.1.js") }}"></script>
+            <script src="{{ asset("bundles/dmcsnotesmanager/js/bootstrap.js") }}"></script>
+        {% endblock %}
     </body>
 </html>

@@ -43,6 +43,12 @@
                     <h4 class="modal-title" id="registerModalLabel"><strong>Registration form</strong></h4>
                 </div>
                 <div class="modal-body">
+                    {% if not is_unique %}
+                        <strong> Provided username or email is not unique </strong></br>
+                    {% endif %}
+                    {% if passwords_not_valid %}
+                        <strong> Passwords are not the same </strong>
+                    {% endif %}
                     {{ form_start(registration_form, {'attr': {'role': 'form'}}) }}
                         <div class="form-group">
                             <div class="form-group">
@@ -74,4 +80,14 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% if (not is_unique or passwords_not_valid) %}
+        <script type="text/javascript">
+            $(window).load(function() {
+                $('#registerModal').modal('show');
+            });
+        </script>
+    {% endif %}
 {% endblock %}

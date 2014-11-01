@@ -10,7 +10,7 @@ use Dmcs\NotesManagerBundle\Entity\User;
 
 class DefaultController extends Controller
 {
-    public function indexAction()
+    public function indexAction($isUnique = true, $passwordsNotValid = false)
     {
         $user = new User();
         $form = $this->createForm(new UserType(), $user, array(
@@ -25,6 +25,8 @@ class DefaultController extends Controller
         return $this->render('DmcsNotesManagerBundle:Default:home.html.twig', array(
             'login_form' => $form->createView(),
             'registration_form' => $registrationForm->createView(),
+            'is_unique' => $isUnique,
+            'passwords_not_valid' => $passwordsNotValid,
         ));
     }
 }
