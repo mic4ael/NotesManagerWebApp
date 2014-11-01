@@ -12,7 +12,8 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  *
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="Dmcs\NotesManagerBundle\Entity\UserRepository")
- * @UniqueEntity(fields="username")
+ * @UniqueEntity(fields="username", message="This username is already taken")
+ * @UniqueEntity(fields="email", message="This email is already taken")
  */
 class User implements UserInterface, \Serializable
 {
@@ -28,7 +29,7 @@ class User implements UserInterface, \Serializable
     /**
      * @var string
      *
-     * @ORM\Column(name="username", type="string", length=255)
+     * @ORM\Column(name="username", type="string", length=255, unique=true)
      * @Assert\NotBlank()
      */
     private $username;
@@ -45,18 +46,24 @@ class User implements UserInterface, \Serializable
      *
      * @ORM\Column(name="password", type="string", length=255)
      * @Assert\NotBlank()
+     * @Assert\Length(max = 4096)
      */
     private $password;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="email", type="string", length=255)
+     * @ORM\Column(name="email", type="string", length=255, unique=true)
      * @Assert\NotBlank()
      * @Assert\Email()
      */
     private $email;
 
+
+    /*
+     * @ORM\OneToMany(targetEntity="Note", mappedBy="owner")
+     */
+    private $notes;
 
     /**
      * Get id
@@ -158,6 +165,16 @@ class User implements UserInterface, \Serializable
     public function getEmail()
     {
         return $this->email;
+    }
+
+    public function setNotes($notes)
+    {
+        $this->notes = notes;
+    }
+
+    public function getNotes()
+    {
+        return $this->notes;
     }
 
     public function serialize()

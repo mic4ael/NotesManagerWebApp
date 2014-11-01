@@ -1,11 +1,18 @@
 dmcs_notes_manager_homepage:
     path:     /
     defaults: { _controller: DmcsNotesManagerBundle:Default:index }
+    methods: [GET]
 
 register_path:
     path: /register
-    defaults: {_controller: DmcsNotesManagerBundle:Default:register }
+    defaults: { _controller: DmcsNotesManagerBundle:Auth:register }
+    methods: [POST]
+
+login_path:
+    path: /login
+    defaults: { _controller: DmcsNotesManagerBundle:Auth:login }
 
 api_main:
     path: /api/{method}
-    defaults: {_controller: DmcsNotesManagerBundle:Api:route, method: index }
+    defaults: { _controller: DmcsNotesManagerBundle:Api:route, method: index }
+    methods: [POST]

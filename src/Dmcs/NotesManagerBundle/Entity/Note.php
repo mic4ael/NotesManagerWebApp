@@ -42,6 +42,17 @@ class Note
      */
     private $color;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Category")
+     */
+    private $category;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="notes")
+     *
+     */
+    private $owner;
+
 
     /**
      * Get id
@@ -120,5 +131,25 @@ class Note
     public function getColor()
     {
         return $this->color;
+    }
+
+    public function setCategory($category)
+    {
+        $this->category = $category;
+    }
+
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    public function setOwner($owner)
+    {
+        $this->owner = $owner;
+    }
+
+    public function getOwner()
+    {
+        return $this->owner;
     }
 }

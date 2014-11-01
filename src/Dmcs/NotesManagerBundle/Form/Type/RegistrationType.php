@@ -16,8 +16,7 @@ class RegistrationType extends AbstractType
                     'first_name' => 'password',
                     'second_name' => 'confirm',
                     'type' => 'password'
-                ))
-                ->add('save', 'submit');
+                ));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
