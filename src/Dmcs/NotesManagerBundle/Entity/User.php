@@ -4,12 +4,15 @@ namespace Dmcs\NotesManagerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * User
  *
- * @ORM\Table()
+ * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="Dmcs\NotesManagerBundle\Entity\UserRepository")
+ * @UniqueEntity(fields="username")
  */
 class User implements UserInterface, \Serializable
 {
@@ -26,6 +29,7 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $username;
 
@@ -40,6 +44,7 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=255)
+     * @Assert\NotBlank()
      */
     private $password;
 
@@ -47,6 +52,8 @@ class User implements UserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=255)
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private $email;
 
@@ -180,7 +187,7 @@ class User implements UserInterface, \Serializable
 
     public function getSalt()
     {
-
+        return null;
     }
 
     public function eraseCredentials()

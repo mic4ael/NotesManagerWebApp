@@ -2,6 +2,10 @@ dmcs_notes_manager_homepage:
     path:     /
     defaults: { _controller: DmcsNotesManagerBundle:Default:index }
 
+register_path:
+    path: /register
+    defaults: {_controller: DmcsNotesManagerBundle:Default:register }
+
 api_main:
     path: /api/{method}
     defaults: {_controller: DmcsNotesManagerBundle:Api:route, method: index }

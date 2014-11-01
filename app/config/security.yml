@@ -1,7 +1,7 @@
 security:
     providers:
-        in_memory:
-            memory: ~
+        user_db:
+            entity: { class: Dmcs\NotesManagerBundle\Entity\User, property: username }
 
     firewalls:
         dev:
@@ -10,3 +10,13 @@ security:
 
         default:
             anonymous: ~
+
+        secured_area:
+            pattern: ^/
+            anonymous: ~
+            form_login: ~
+
+    encoders:
+        Symfony\Component\Security\Core\User\User:
+            algorithm: bcrypt
+            cost: 12

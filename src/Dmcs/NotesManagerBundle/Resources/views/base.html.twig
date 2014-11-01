@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8"/>
+        <link rel="stylesheet" type="text/css" href="{{ asset("bundles/dmcsnotesmanager/css/bootstrap.css") }}"/>
+        <link rel="stylesheet" type="text/css" href="{{ asset("bundles/dmcsnotesmanager/css/custom.css") }}"/>
+        {% block head %}
+        <title>{% block title %}{% endblock %} - My Webpage</title>
+        {% endblock %}
+    </head>
+    <body>
+        <div class="container">
+            <div id="content">
+                {% block content %}
+                    Body here
+                {% endblock %}
+            </div>
+        </div>
+        <script src="{{ asset("bundles/dmcsnotesmanager/js/jquery-2.1.1.js") }}"></script>
+        <script src="{{ asset("bundles/dmcsnotesmanager/js/bootstrap.js") }}"></script>
+    </body>
+</html>
