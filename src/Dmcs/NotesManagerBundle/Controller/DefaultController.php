@@ -22,7 +22,7 @@ class DefaultController extends Controller
             'action' => $this->generateUrl('register_path'),
         ));
 
-        return $this->render('DmcsNotesManagerBundle:Default:index.html.twig', array(
+        return $this->render('DmcsNotesManagerBundle:Default:home.html.twig', array(
             'login_form' => $form->createView(),
             'registration_form' => $registrationForm->createView(),
         ));
