@@ -27,7 +27,7 @@ class AuthController extends Controller
             return $this->redirect($this->generateUrl('dmcs_notes_manager_homepage'));
         } else {
             return $this->forward('DmcsNotesManagerBundle:Default:index', array(
-                'passwordsNotValid' => true,
+                'registrationErrors' => 'Passwords are not the same',
             ));
         }
     }

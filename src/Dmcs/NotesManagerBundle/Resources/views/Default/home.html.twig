@@ -44,10 +44,10 @@
                 </div>
                 <div class="modal-body">
                     {% if not is_unique %}
-                        <strong> Provided username or email is not unique </strong></br>
+                        <strong> Provided username or email is not unique </strong>
                     {% endif %}
-                    {% if passwords_not_valid %}
-                        <strong> Passwords are not the same </strong>
+                    {% if registration_errors is not null %}
+                        <strong> {{ registration_errors }} </strong>
                     {% endif %}
                     {{ form_start(registration_form, {'attr': {'role': 'form'}}) }}
                         <div class="form-group">
@@ -83,7 +83,7 @@
 {% endblock %}
 {% block javascripts %}
     {{ parent() }}
-    {% if (not is_unique or passwords_not_valid) %}
+    {% if (not is_unique or registration_errors is not null) %}
         <script type="text/javascript">
             $(window).load(function() {
                 $('#registerModal').modal('show');
