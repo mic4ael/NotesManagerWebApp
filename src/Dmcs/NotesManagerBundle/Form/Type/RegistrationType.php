@@ -15,15 +15,9 @@ class RegistrationType extends AbstractType
                 ->add('password', 'repeated', array(
                     'first_name' => 'password',
                     'second_name' => 'confirm',
-                    'type' => 'password'
-                ));
-    }
-
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'Dmcs\NotesManagerBundle\Entity\User'
-        ));
+                    'type' => 'password',
+                ))
+                ->add('register', 'submit');
     }
 
     public function getName() 

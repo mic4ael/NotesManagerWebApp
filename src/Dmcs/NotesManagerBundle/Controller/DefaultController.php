@@ -14,7 +14,7 @@ class DefaultController extends Controller
     {
         $user = new User();
         $form = $this->createForm(new UserType(), $user, array(
-            'action' => $this->generateUrl('register_path'),
+            'action' => $this->generateUrl('login_path'),
         ));
 
         $registration = new Registration();
