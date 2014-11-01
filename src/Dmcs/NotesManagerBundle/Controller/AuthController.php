@@ -4,6 +4,7 @@ namespace Dmcs\NotesManagerBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Dmcs\NotesManagerBundle\Form\Type\RegistrationType;
+use Dmcs\NotesManagerBundle\Form\Model\Registration;
 
 class AuthController extends Controller
 {
@@ -11,13 +12,15 @@ class AuthController extends Controller
     {
         $userService = $this->get('notes_manager.service.factory')
                             ->create('UserService');
-        $form = new RegistrationType();
 
+        $form = $this->createForm(new RegistrationType(), new Registration());
         $form->handleRequest($this->getRequest());
         
         if ($form->isValid()) {
-            $userService->registerUser($form);
+            $userService->registerUser($form->getData());
         }
+
+        return $this->redirect($this->generateUrl('dmcs_notes_manager_homepage'));
     }
 
     public function loginAction()

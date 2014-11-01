@@ -24,7 +24,7 @@ class Registration
 
     public function setUsername($username)
     {
-        $this->user = $user;
+        $this->username = $username;
     }
 
     public function getUsername()
