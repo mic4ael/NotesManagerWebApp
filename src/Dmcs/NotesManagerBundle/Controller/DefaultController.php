@@ -10,7 +10,7 @@ use Dmcs\NotesManagerBundle\Entity\User;
 
 class DefaultController extends Controller
 {
-    public function indexAction($uniquenessError = NULL, $registrationErrors = NULL)
+    public function indexAction($uniquenessError = NULL, $registrationErrors = NULL, $error = NULL)
     {
         $user = new User();
         $form = $this->createForm(new UserType(), $user, array(
@@ -27,7 +27,7 @@ class DefaultController extends Controller
             'registration_form' => $registrationForm->createView(),
             'uniqueness_error' => $uniquenessError,
             'registration_errors' => $registrationErrors,
-            'error' => NULL
+            'error' => $error,
         ));
     }
 }

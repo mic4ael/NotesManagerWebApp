@@ -29,7 +29,6 @@ security:
             form_login:
                 login_path: /login
                 check_path: /login_check
-                failure_path: /failure
                 post_only: true
                 default_target_path: /home
             logout:

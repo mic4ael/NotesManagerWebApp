@@ -4,7 +4,9 @@
 {% endblock %}
 {% block content %}
     {% if error %}
-        <div class="bg-danger"> {{ error.message }} </div>
+        <div id="message" class="alert alert-danger"> 
+            {{ error.message }} 
+        </div>
     {% endif %}
     <div class="app_form bg-success">
         <h1> Login Form </h1>
@@ -104,6 +106,12 @@
             $(window).load(function() {
                 $('#registerModal').modal('show');
             });
+        </script>
+    {% endif %}
+
+    {% if error %}
+        <script type="text/javascript">
+            $('#message').fadeOut(3000);
         </script>
     {% endif %}
 {% endblock %}
