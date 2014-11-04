@@ -3,6 +3,10 @@ dmcs_notes_manager_homepage:
     defaults: { _controller: DmcsNotesManagerBundle:Default:index }
     methods: [GET]
 
+home_path:
+    path: /home
+    defaults: { _controller: DmcsNotesManagerBundle:Home:index }
+
 register_path:
     path: /register
     defaults: { _controller: DmcsNotesManagerBundle:Auth:register }

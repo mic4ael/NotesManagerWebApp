@@ -12,17 +12,15 @@
                 <div class="form-group">
                     <div class="form-group">
                         {{ form_label(login_form.username, 'Username') }}
-                        {{ form_widget(login_form.username, {'attr': {
-                            'class': 'form-control',
-                            'name': '_username'
-                        }}) }}
+                        {{ form_widget(login_form.username, {
+                            'full_name': '_username',
+                            'attr': {'class': 'form-control'}}) }}
                     </div>
                     <div class="form-group">
                         {{ form_label(login_form.password, 'Password') }}
-                        {{ form_widget(login_form.password, {'attr': {
-                            'class': 'form-control', 
-                            'name': '_password'
-                        }}) }}
+                        {{ form_widget(login_form.password, {
+                            'full_name': '_password', 
+                            'attr': {'class': 'form-control'}}) }}
                     </div>
                     <div class="row" style="width: 80%">
                         <div class="col-md-6">
