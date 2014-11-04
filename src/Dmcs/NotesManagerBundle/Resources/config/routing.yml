@@ -7,6 +7,14 @@ home_path:
     path: /home
     defaults: { _controller: DmcsNotesManagerBundle:Home:index }
 
+new_note_path:
+    path: /home/new-note
+    defaults: { _controller: DmcsNotesManagerBundle:Home:newNote }
+
+list_notes_path:
+    path: /home/notes
+    defaults: { _controller: DmcsNotesManagerBundle:Home:listNotes }
+
 register_path:
     path: /register
     defaults: { _controller: DmcsNotesManagerBundle:Auth:register }

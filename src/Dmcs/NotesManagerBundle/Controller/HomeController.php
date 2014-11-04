@@ -12,4 +12,14 @@ class HomeController extends Controller
     {
         return $this->render('DmcsNotesManagerBundle:Home:index.html.twig');
     }
+
+    public function newNoteAction()
+    {
+
+    }
+
+    public function listNotesAction()
+    {
+        
+    }
 }
