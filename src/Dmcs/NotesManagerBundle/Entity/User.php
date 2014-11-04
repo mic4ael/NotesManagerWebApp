@@ -59,11 +59,21 @@ class User implements UserInterface, \Serializable
      */
     private $email;
 
+    /**
+     * @ORM\Column(name="salt", type="string", length=40)
+     */
+    private $salt;
+
 
     /*
      * @ORM\OneToMany(targetEntity="Note", mappedBy="owner")
      */
     private $notes;
+
+    public function __construct()
+    {
+        $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
+    }
 
     /**
      * Get id
@@ -204,7 +214,7 @@ class User implements UserInterface, \Serializable
 
     public function getSalt()
     {
-        return null;
+        return $this->salt;
     }
 
     public function eraseCredentials()

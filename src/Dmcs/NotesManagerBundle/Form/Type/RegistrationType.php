@@ -16,6 +16,7 @@ class RegistrationType extends AbstractType
                     'first_name' => 'password',
                     'second_name' => 'confirm',
                     'type' => 'password',
+                    'invalid_message' => 'Passwords are not the same'
                 ))
                 ->add('register', 'submit');
     }

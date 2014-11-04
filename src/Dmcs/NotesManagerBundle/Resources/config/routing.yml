@@ -8,9 +8,15 @@ register_path:
     defaults: { _controller: DmcsNotesManagerBundle:Auth:register }
     methods: [POST]
 
-login_path:
+login:
     path: /login
     defaults: { _controller: DmcsNotesManagerBundle:Auth:login }
+
+login_check:
+    path: /login_check
+
+logout:
+    path: /logout
 
 api_main:
     path: /api/{method}

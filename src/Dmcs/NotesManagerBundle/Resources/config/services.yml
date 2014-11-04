@@ -1,4 +1,5 @@
 services:
     notes_manager.service.factory:
         class: Dmcs\NotesManagerBundle\Factories\ServicesFactory
-        arguments: [@doctrine.orm.entity_manager]
+        arguments: 
+            - @doctrine.orm.entity_manager

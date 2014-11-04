@@ -5,16 +5,25 @@ namespace Dmcs\NotesManagerBundle\Services;
 use Dmcs\NotesManagerBundle\Entity\User;
 use Dmcs\NotesManagerBundle\Entity\UserRepository;
 use Dmcs\NotesManagerBundle\Form\Model\Registration;
+use Symfony\Component\Security\Core\Encoder\EncoderFactory;
 
 class UserService extends BaseService
 {
+    private $encoderFactory;
+
+    public function setEncoderFactory(EncoderFactory $encoderFactory)
+    {
+        $this->encoderFactory = $encoderFactory;
+    }
+
     public function registerUser(Registration $form)
     {
-        $user = new User();
         if ($this->checkIsUnique($form)) {
+            $user = new User();
+            $encoder = $this->encoderFactory->getEncoder($user);
             $user->setUsername($form->getUsername())
                  ->setEmail($form->getEmail())
-                 ->setPassword($form->getPassword());
+                 ->setPassword($encoder->encodePassword($form->getPassword(), $user->getSalt()));
 
             $this->em->persist($user);
             $this->em->flush();
@@ -22,7 +31,7 @@ class UserService extends BaseService
             return $user->getId();
         }
         
-        return null;
+        throw new \Exception("Provided email or username is not unique");
     }
 
     private function checkIsUnique($form)
