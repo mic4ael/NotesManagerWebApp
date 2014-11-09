@@ -40,4 +40,9 @@ class UserService extends BaseService
         return $userRepository->findOneByUsername($form->getUsername()) === null &&
                $userRepository->findOneByEmail($form->getEmail()) === null;
     }
+
+    public function findOneByUsername($username)
+    {
+        return $this->em->getRepository('DmcsNotesManagerBundle:User')->findOneByUsername($username);
+    }
 }

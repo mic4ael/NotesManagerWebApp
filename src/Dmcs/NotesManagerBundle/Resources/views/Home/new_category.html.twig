@@ -4,5 +4,18 @@
 {% endblock %}
 
 {% block panel_body %}
-
+    {{ form_start(form, {'attr': {'role': 'form'}}) }}
+        <div class="form-group">
+            <div class="form-group">
+                {{ form_label(form.name, 'Category Title') }}
+                {{ form_widget(form.name, { 'attr': {'class': 'form-control'}}) }}
+            </div>
+            </br>
+            <div class="row" style="width: 80%">
+                <div class="form-group pull-left">
+                    {{ form_widget(form.submit, {'attr': {'class': 'btn btn-primary'}}) }}
+                </div>
+            </div>
+        </div>
+    {{ form_end(form) }}
 {% endblock %}

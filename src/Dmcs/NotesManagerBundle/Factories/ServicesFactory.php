@@ -5,6 +5,7 @@ namespace Dmcs\NotesManagerBundle\Factories;
 use Doctrine\ORM\EntityManager;
 use Dmcs\NotesManagerBundle\Services\UserService;
 use Dmcs\NotesManagerBundle\Services\NoteService;
+use Dmcs\NotesManagerBundle\Services\CategoryService;
 
 final class ServicesFactory {
     private static $em;
@@ -20,6 +21,9 @@ final class ServicesFactory {
 
             case 'NoteService':
                 return new NoteService(self::$em);
+
+            case 'CategoryService':
+                return new CategoryService(self::$em);
             
             default:
                 throw new \Exception("No such service");

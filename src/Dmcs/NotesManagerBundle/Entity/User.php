@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * User
@@ -46,7 +47,6 @@ class User implements UserInterface, \Serializable
      *
      * @ORM\Column(name="password", type="string", length=255)
      * @Assert\NotBlank()
-     * @Assert\Length(max = 4096)
      */
     private $password;
 
@@ -64,15 +64,21 @@ class User implements UserInterface, \Serializable
      */
     private $salt;
 
-
-    /*
+    /**
      * @ORM\OneToMany(targetEntity="Note", mappedBy="owner")
      */
     private $notes;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Category", mappedBy="owner")
+     */
+    private $categories;
+
     public function __construct()
     {
         $this->salt = base_convert(sha1(uniqid(mt_rand(), true)), 16, 36);
+        $this->notes = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     /**
@@ -177,9 +183,13 @@ class User implements UserInterface, \Serializable
         return $this->email;
     }
 
-    public function setNotes($notes)
+    public function addNote($note)
     {
-        $this->notes = notes;
+        if (is_null($this->notes))
+            $this->notes = new ArrayCollection;
+
+        $this->notes->add($note);
+        return $this;
     }
 
     public function getNotes()
@@ -187,12 +197,26 @@ class User implements UserInterface, \Serializable
         return $this->notes;
     }
 
+    public function addCategories($category)
+    {
+        if (is_null($this->categories))
+            $this->categories = new ArrayCollection;
+
+        $this->categories->add($category);
+        return $this;
+    }
+
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
     public function serialize()
     {
         return serialize(array(
             $this->id,
             $this->username,
-            $this->password,
+            $this->password
         ));
     }
 
@@ -201,7 +225,7 @@ class User implements UserInterface, \Serializable
         list(
             $this->id,
             $this->username,
-            $this->password,
+            $this->password
         ) = unserialize($serialized);
     }
 

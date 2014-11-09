@@ -31,7 +31,7 @@ class Note
     /**
      * @var string
      *
-     * @ORM\Column(name="content", type="string", length=255)
+     * @ORM\Column(name="content", type="string", length=1000)
      */
     private $content;
 
@@ -43,13 +43,14 @@ class Note
     private $color;
 
     /**
-     * @ORM\OneToOne(targetEntity="Category")
+     * @ORM\ManyToOne(targetEntity="Category")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $category;
 
     /**
      * @ORM\ManyToOne(targetEntity="User", inversedBy="notes")
-     *
+     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
      */
     private $owner;
 
@@ -136,6 +137,7 @@ class Note
     public function setCategory($category)
     {
         $this->category = $category;
+        return $this;
     }
 
     public function getCategory()
@@ -146,6 +148,7 @@ class Note
     public function setOwner($owner)
     {
         $this->owner = $owner;
+        return $this;
     }
 
     public function getOwner()

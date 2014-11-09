@@ -30,6 +30,13 @@ class Category
 
 
     /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="categories")
+     * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
+     */
+    private $owner;
+
+
+    /**
      * Get id
      *
      * @return integer 
@@ -60,5 +67,16 @@ class Category
     public function getName()
     {
         return $this->name;
+    }
+
+    public function setOwner($owner)
+    {
+        $this->owner = $owner;
+        return $this;
+    }
+
+    public function getOwner()
+    {
+        return $this->owner;
     }
 }

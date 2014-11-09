@@ -6,22 +6,20 @@
     {% if notes is not null and notes|length != 0 %}
         <div class="list-group">
             {% for note in notes %}
-                <a href="#" class="list-group-item">
-                    note.title
+                <span class="list-group-item">
+                    {{ note.title }}
                     <span class="pull-right">
-                        <button class="btn btn-xs btn-warning">
+                        <a href="{{ url('home_path') }}" class="btn btn-xs btn-warning">
                             <span class="glyphicon glyphicon-edit"></span>
-                        </button>
-                        <button class="btn btn-xs btn-warning">
+                        </a>
+                        <a href="{{ url('note_delete_path', { 'noteId': note.id }) }}" class="btn btn-xs btn-warning">
                             <span class="glyphicon glyphicon-trash"></span>
-                        </button>
+                        </a>
                     </span>
-                </a>
+                </span>
             {% endfor %}
         </div>
     {% else %}
-        <div class="panel-body">
             You haven't created any notes yet!
-        </div>
     {% endif %}
 {% endblock %}
