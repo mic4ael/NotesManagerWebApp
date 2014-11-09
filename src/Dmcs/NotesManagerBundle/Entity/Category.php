@@ -34,8 +34,7 @@ class Category
      * @ORM\JoinColumn(name="owner_id", referencedColumnName="id")
      */
     private $owner;
-
-
+    
     /**
      * Get id
      *
@@ -78,5 +77,10 @@ class Category
     public function getOwner()
     {
         return $this->owner;
+    }
+
+    public function __toString()
+    {
+        return $this->name;
     }
 }

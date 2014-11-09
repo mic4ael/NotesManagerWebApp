@@ -11,6 +11,7 @@ class NoteService extends BaseService
         $note = new Note;
         $note->setTitle($form->getTitle())
              ->setContent($form->getContent())
+             ->setCategory($form->getCategory())
              ->setOwner($owner)
              ->setColor('color');
 

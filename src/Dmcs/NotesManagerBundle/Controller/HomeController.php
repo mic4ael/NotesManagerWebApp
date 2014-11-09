@@ -21,9 +21,9 @@ class HomeController extends Controller
         ));
     }
 
-    public function showNoteAction($noteId)
+    public function editNoteAction($noteId)
     {
-
+        
     }
 
     public function newNoteAction()
@@ -31,7 +31,7 @@ class HomeController extends Controller
         $user = $this->get('security.context')->getToken()->getUser();
         $noteService = $this->get('notes_manager.service.factory')
                             ->create('NoteService');
-        $form = $this->createForm(new NoteType(), new Note, array(
+        $form = $this->createForm(new NoteType($user->getId()), new Note, array(
             'action' => $this->generateUrl('new_note_path')
         ));
 

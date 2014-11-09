@@ -7,6 +7,13 @@ home_path:
     path: /home/
     defaults: { _controller: DmcsNotesManagerBundle:Home:index }
 
+api_main:
+    path: /api/{method}
+    defaults: { _controller: DmcsNotesManagerBundle:Api:route, method: index }
+    methods: [POST]
+
+# notes start
+
 new_note_path:
     path: /home/new-note
     defaults: { _controller: DmcsNotesManagerBundle:Home:newNote }
@@ -15,9 +22,13 @@ note_delete_path:
     path: /home/delete-note/{noteId}
     defaults: { _controller: DmcsNotesManagerBundle:Home:deleteNote }
 
-show_note_path:
+edit_note_path:
     path: /home/notes/{noteId}
-    defaults: { _controller: DmcsNotesManagerBundle:Home:showNote }
+    defaults: { _controller: DmcsNotesManagerBundle:Home:editNote }
+
+# notes end
+
+# categories start
 
 new_category_path:
     path: /home/new-category
@@ -27,15 +38,14 @@ category_delete_path:
     path: /home/delete-category/{categoryId}
     defaults: { _controller: DmcsNotesManagerBundle:Home:deleteCategory }
 
+# categories end
+
 register_path:
     path: /register
     defaults: { _controller: DmcsNotesManagerBundle:Auth:register }
     methods: [POST]
 
-api_main:
-    path: /api/{method}
-    defaults: { _controller: DmcsNotesManagerBundle:Api:route, method: index }
-    methods: [POST]
+# auth start
 
 login:
     path: /login
@@ -46,3 +56,5 @@ login_check:
 
 logout:
     path: /logout
+
+# auth end
