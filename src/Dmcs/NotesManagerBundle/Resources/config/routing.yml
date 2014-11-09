@@ -15,13 +15,17 @@ note_delete_path:
     path: /home/delete-note/{noteId}
     defaults: { _controller: DmcsNotesManagerBundle:Home:deleteNote }
 
+show_note_path:
+    path: /home/notes/{noteId}
+    defaults: { _controller: DmcsNotesManagerBundle:Home:showNote }
+
 new_category_path:
     path: /home/new-category
     defaults: { _controller: DmcsNotesManagerBundle:Home:newCategory }
 
-show_note_path:
-    path: /home/notes/{noteId}
-    defaults: { _controller: DmcsNotesManagerBundle:Home:showNote }
+category_delete_path:
+    path: /home/delete-category/{categoryId}
+    defaults: { _controller: DmcsNotesManagerBundle:Home:deleteCategory }
 
 register_path:
     path: /register

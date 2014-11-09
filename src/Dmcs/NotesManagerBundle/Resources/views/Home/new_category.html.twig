@@ -19,3 +19,31 @@
         </div>
     {{ form_end(form) }}
 {% endblock %}
+{% block other_panels %}
+    <div class="panel panel-danger">
+        <div class="panel-heading">
+            List of your categories
+        </div>
+        <div class="panel-body">
+            <div class="list-group">
+            {% if categories is not null and categories|length != 0 %}
+                {% for category in categories %}
+                <span class="list-group-item">
+                    {{ category.name }}
+                    <span class="pull-right">
+                        <a href="{{ url('home_path') }}" class="btn btn-xs btn-warning">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </a>
+                        <a href="{{ url('category_delete_path', { 'categoryId': category.id }) }}" class="btn btn-xs btn-warning">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                    </span>
+                </span>
+                {% endfor %}
+            {% else %}
+                No categories found!
+            {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -12,4 +12,15 @@ class CategoryService extends BaseService
         $this->em->persist($category);
         $this->em->flush();
     }
+
+    public function deleteCategoryById($categoryId, $owner)
+    {
+        $categoryRepo = $this->em->getRepository('DmcsNotesManagerBundle:Category');
+        $category = $categoryRepo->find($categoryId);
+
+        if ($category && $category->getOwner()->getId() === $owner->getId()) {
+            $this->em->remove($category);
+            $this->em->flush();
+        }
+    }
 }

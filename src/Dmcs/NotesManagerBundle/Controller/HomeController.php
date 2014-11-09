@@ -23,7 +23,7 @@ class HomeController extends Controller
 
     public function showNoteAction($noteId)
     {
-        
+
     }
 
     public function newNoteAction()
@@ -52,7 +52,8 @@ class HomeController extends Controller
         $user = $this->get('security.context')->getToken()->getUser();
         $noteService = $this->get('notes_manager.service.factory')
                             ->create('NoteService');
-        $noteService->deleteById($noteId);
+
+        $noteService->deleteById($noteId, $user);
 
         return $this->redirect($this->generateUrl('home_path'));
     }
@@ -74,7 +75,18 @@ class HomeController extends Controller
         }
 
         return $this->render('DmcsNotesManagerBundle:Home:new_category.html.twig', array(
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'categories' => $user->getCategories()
         ));
+    }
+
+    public function deleteCategoryAction($categoryId)
+    {
+        $user = $this->get('security.context')->getToken()->getUser();
+        $categoryService = $this->get('notes_manager.service.factory')
+                                ->create('CategoryService');
+
+        $categoryService->deleteCategoryById($categoryId, $user);
+        return $this->redirect($this->generateUrl('new_category_path'));
     }
 }

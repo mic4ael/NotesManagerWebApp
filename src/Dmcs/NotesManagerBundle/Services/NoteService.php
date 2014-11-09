@@ -18,11 +18,14 @@ class NoteService extends BaseService
         $this->em->flush();
     }
 
-    public function deleteById($noteId)
+    public function deleteById($noteId, $user)
     {
         $noteRepo = $this->em->getRepository('DmcsNotesManagerBundle:Note');
         $note = $noteRepo->find($noteId);
-        $this->em->remove($note);
-        $this->em->flush();
+
+        if ($note && $note->getOwner()->getId() === $user->getId()) {
+            $this->em->remove($note);
+            $this->em->flush();
+        }
     }
 }
