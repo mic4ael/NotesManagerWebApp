@@ -4,16 +4,23 @@ dmcs_notes_manager_homepage:
     methods: [GET]
 
 home_path:
-    path: /home
+    path: /home/
     defaults: { _controller: DmcsNotesManagerBundle:Home:index }
 
 new_note_path:
     path: /home/new-note
     defaults: { _controller: DmcsNotesManagerBundle:Home:newNote }
 
+new_category_path:
+    path: /home/new-category
+    defaults: { _controller: DmcsNotesManagerBundle:Home:newCategory }
+
 list_notes_path:
-    path: /home/notes
+    path: /home/notes/
     defaults: { _controller: DmcsNotesManagerBundle:Home:listNotes }
+
+show_note_path:
+    path: /home/notes/{note_id}
 
 register_path:
     path: /register

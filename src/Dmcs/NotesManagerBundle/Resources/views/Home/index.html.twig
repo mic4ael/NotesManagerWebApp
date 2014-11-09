@@ -1,21 +1,27 @@
-{% extends 'DmcsNotesManagerBundle::base.html.twig' %}
-{% block title %}
-    Home
+{% extends 'DmcsNotesManagerBundle:Home:home_base.html.twig' %}
+{% block panel_heading %}
+    List of your notes
 {% endblock %}
-
-{% block content %}
-    <nav id="main-menu" role="navigation" class="navbar navbar-inverse">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="{{ path('home_path') }}"> Home </a>
+{% block panel_body %}
+    {% if notes is not null and notes|length != 0 %}
+        <div class="list-group">
+            {% for note in notes %}
+                <a href="#" class="list-group-item">
+                    note.title
+                    <span class="pull-right">
+                        <button class="btn btn-xs btn-warning">
+                            <span class="glyphicon glyphicon-edit"></span>
+                        </button>
+                        <button class="btn btn-xs btn-warning">
+                            <span class="glyphicon glyphicon-trash"></span>
+                        </button>
+                    </span>
+                </a>
+            {% endfor %}
         </div>
-        <div class="collapse navbar-collapse">
-            <ul class="nav navbar-nav navbar-left">
-                <li><a href="#"> My Notes </a></li>
-                <li><a href="#"> Create a note </a></li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li><a href="{{ path('logout') }}"> Logout </a></li>
-            </ul>
+    {% else %}
+        <div class="panel-body">
+            You haven't created any notes yet!
         </div>
-    </nav>
+    {% endif %}
 {% endblock %}
