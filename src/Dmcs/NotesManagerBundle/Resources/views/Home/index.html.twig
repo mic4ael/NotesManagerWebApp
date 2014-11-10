@@ -7,7 +7,10 @@
         <div class="list-group">
             {% for note in notes %}
                 <span class="list-group-item">
-                    {{ note.title }}
+                    <button type="button" class="btn btn-danger" data-toggle="collapse"
+                     data-target="#note{{ note.id }}" aria-expanded="true" aria-controls="demo">
+                      {{ note.title }}
+                    </button>
                     <span class="pull-right">
                         <a href="{{ url('home_path') }}" class="btn btn-xs btn-warning">
                             <span class="glyphicon glyphicon-edit"></span>
@@ -17,6 +20,9 @@
                         </a>
                     </span>
                 </span>
+                <div id="note{{ note.id }}" class="collapse alert alert-danger"> 
+                    {{ note.content }}
+                </div>
             {% endfor %}
         </div>
     {% else %}
