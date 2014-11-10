@@ -76,13 +76,15 @@ class HomeController extends Controller
         $form = $this->createForm(new CategoryType(), new Category, array(
             'action' => $this->generateUrl('new_category_path')
         ));
+        $blankForm = clone $form;
 
         $message = NULL;
         if ($this->getRequest()->getMethod() == 'POST') {
             $form->handleRequest($this->getRequest());
             if ($form->isValid()) {
                 $persisted = $categoryService->saveNewCategory($form->getData(), $user);
-                $message = $persisted ? 'Category saved' : NULL;
+                $message = $persisted ? 'Category saved' : 'This name is not unique';
+                if ($persisted) $form = $blankForm;
             }
         }
 
