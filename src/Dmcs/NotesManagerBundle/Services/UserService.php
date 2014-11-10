@@ -43,6 +43,7 @@ class UserService extends BaseService
 
     public function findOneByUsername($username)
     {
-        return $this->em->getRepository('DmcsNotesManagerBundle:User')->findOneByUsername($username);
+        return $this->em->getRepository('DmcsNotesManagerBundle:User')
+                    ->findOneByUsername($username);
     }
 }

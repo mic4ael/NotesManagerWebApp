@@ -18,7 +18,9 @@ class NoteType extends AbstractType
     {
         $owner = $this->ownerId;
         $builder->add('title', 'text')
-                ->add('content', 'text')
+                ->add('content', 'textarea', array(
+                    'attr' => array('rows' => 5)
+                ))
                 ->add('category', 'entity', array(
                     'class' => 'DmcsNotesManagerBundle:Category',
                     'empty_value' => 'Choose a category',

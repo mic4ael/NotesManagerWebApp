@@ -23,7 +23,10 @@ class CategoryService extends BaseService
             $category->setOwner($owner);
             $this->em->persist($category);
             $this->em->flush();
+            return true;
         }
+
+        return false;
     }
 
     public function deleteCategoryById($categoryId, $owner)
@@ -34,7 +37,7 @@ class CategoryService extends BaseService
             'owner' => $owner->getId()
         ));
 
-        if ($category && $category->getOwner()->getId() === $owner->getId()) {
+        if ($category) {
             $this->em->remove($category);
             $this->em->flush();
         }

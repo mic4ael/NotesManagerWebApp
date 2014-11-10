@@ -4,6 +4,11 @@
 {% endblock %}
 
 {% block panel_body %}
+    {% if message is not null %}
+    <div id="message" class="alert alert-danger">
+        {{ message }}
+    </div>
+    {% endif %}
     {{ form_start(form, {'attr': {'role': 'form'}}) }}
         <div class="form-group">
             <div class="form-group">
@@ -43,4 +48,12 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    {% if message is not null %}
+    <script type="text/javascript">
+        $('#message').fadeOut(3000);
+    </script>
+    {% endif %}
 {% endblock %}

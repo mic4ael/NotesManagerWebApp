@@ -17,6 +17,8 @@ class NoteService extends BaseService
 
         $this->em->persist($note);
         $this->em->flush();
+        
+        return true;
     }
 
     public function deleteById($noteId, $user)
