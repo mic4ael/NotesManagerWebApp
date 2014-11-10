@@ -6,6 +6,25 @@ use Dmcs\NotesManagerBundle\Entity\Note;
 
 class NoteService extends BaseService
 {
+    private function getRepository()
+    {
+        return $this->em->getRepository('DmcsNotesManagerBundle:Note');
+    }
+
+    private function _findByOwnerAndId($noteId, $ownerId)
+    {
+        $noteRepo = $this->getRepository();
+        return $noteRepo->findOneBy(array(
+            'id' => $noteId,
+            'owner' => $ownerId
+        ));
+    }
+
+    public function findByOwnerAndId($noteId, $ownerId)
+    {
+        return $this->_findByOwnerAndId($noteId, $ownerId);
+    }
+
     public function saveNewNote(Note $form, $owner)
     {
         $note = new Note;
@@ -23,10 +42,9 @@ class NoteService extends BaseService
 
     public function deleteById($noteId, $user)
     {
-        $noteRepo = $this->em->getRepository('DmcsNotesManagerBundle:Note');
-        $note = $noteRepo->find($noteId);
+        $note = $this->_findByOwnerAndId($noteId, $user->getId());
 
-        if ($note && $note->getOwner()->getId() === $user->getId()) {
+        if ($note) {
             $this->em->remove($note);
             $this->em->flush();
         }

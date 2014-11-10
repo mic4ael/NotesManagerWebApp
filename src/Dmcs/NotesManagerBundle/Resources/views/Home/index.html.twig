@@ -12,10 +12,10 @@
                       {{ note.title }}
                     </button>
                     <span class="pull-right">
-                        <a href="{{ url('home_path') }}" class="btn btn-xs btn-warning">
+                        <a href="{{ url('edit_note_path', { 'noteId': note.id }) }}" class="btn btn-xs btn-warning">
                             <span class="glyphicon glyphicon-edit"></span>
                         </a>
-                        <a href="{{ url('note_delete_path', { 'noteId': note.id }) }}" class="btn btn-xs btn-warning">
+                        <a href="{{ url('delete_note_path', { 'noteId': note.id }) }}" class="btn btn-xs btn-warning">
                             <span class="glyphicon glyphicon-trash"></span>
                         </a>
                     </span>

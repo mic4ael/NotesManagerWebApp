@@ -28,7 +28,10 @@ class HomeController extends Controller
 
     public function editNoteAction($noteId)
     {
-        
+        $loggedUser = $this->getLoggedUser();
+        $note = $this->get('notes_manager.service.factory')
+                     ->create('NoteService')
+                     ->findByOwnerAndId($noteId, $loggedUser->getId());
     }
 
     public function newNoteAction()

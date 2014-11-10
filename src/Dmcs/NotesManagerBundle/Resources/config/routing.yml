@@ -18,7 +18,7 @@ new_note_path:
     path: /home/new-note
     defaults: { _controller: DmcsNotesManagerBundle:Home:newNote }
 
-note_delete_path:
+delete_note_path:
     path: /home/delete-note/{noteId}
     defaults: { _controller: DmcsNotesManagerBundle:Home:deleteNote }
 
@@ -34,7 +34,7 @@ new_category_path:
     path: /home/new-category
     defaults: { _controller: DmcsNotesManagerBundle:Home:newCategory }
 
-category_delete_path:
+delete_category_path:
     path: /home/delete-category/{categoryId}
     defaults: { _controller: DmcsNotesManagerBundle:Home:deleteCategory }
 
