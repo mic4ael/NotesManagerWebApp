@@ -29,9 +29,29 @@ class HomeController extends Controller
     public function editNoteAction($noteId)
     {
         $loggedUser = $this->getLoggedUser();
-        $note = $this->get('notes_manager.service.factory')
-                     ->create('NoteService')
-                     ->findByOwnerAndId($noteId, $loggedUser->getId());
+        $noteService = $this->get('notes_manager.service.factory')
+                     ->create('NoteService');
+        $note = $noteService->findByOwnerAndId($noteId, $loggedUser->getId());
+
+        if (!$note) {
+            return $this->redirect($this->generateUrl('home_path'));
+        }
+        
+        $form = $this->createForm(new NoteType($loggedUser->getId()), $note, array(
+            'action' => $this->generateUrl('edit_note_path', array('noteId' => $note->getId()))
+        ));
+
+        if ($this->getRequest()->getMethod() === 'POST') {
+            $form->handleRequest($this->getRequest());
+            if ($form->isValid()) {
+                $noteService->updateNote($form->getData());
+            }
+        }
+
+        return $this->render('DmcsNotesManagerBundle:Home:new_note.html.twig', array(
+            'form' => $form->createView(),
+            'message' => NULL
+        ));
     }
 
     public function newNoteAction()
@@ -48,7 +68,7 @@ class HomeController extends Controller
         if ($this->getRequest()->getMethod() == 'POST') {
             $form->handleRequest($this->getRequest());
             if ($form->isValid()) {
-                $noteService->saveNewNote($form->getData(), $user);
+                $noteService->saveNote($form->getData(), $user);
                 $message = 'Note saved';
                 $form = $blankForm;
             } 

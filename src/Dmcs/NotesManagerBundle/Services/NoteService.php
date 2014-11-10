@@ -25,7 +25,7 @@ class NoteService extends BaseService
         return $this->_findByOwnerAndId($noteId, $ownerId);
     }
 
-    public function saveNewNote(Note $form, $owner)
+    public function saveNote(Note $form, $owner)
     {
         $note = new Note;
         $note->setTitle($form->getTitle())
@@ -38,6 +38,12 @@ class NoteService extends BaseService
         $this->em->flush();
 
         return true;
+    }
+
+    public function updateNote(Note $note)
+    {
+        $this->em->persist($note);
+        $this->em->flush();
     }
 
     public function deleteById($noteId, $user)
