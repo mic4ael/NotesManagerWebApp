@@ -13,11 +13,11 @@ class NoteService extends BaseService
              ->setContent($form->getContent())
              ->setCategory($form->getCategory())
              ->setOwner($owner)
-             ->setColor('color');
+             ->setColor($form->getColor());
 
         $this->em->persist($note);
         $this->em->flush();
-        
+
         return true;
     }
 

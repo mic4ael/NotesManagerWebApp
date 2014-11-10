@@ -1,4 +1,8 @@
 {% extends 'DmcsNotesManagerBundle:Home:home_base.html.twig' %}
+{% block styles %}
+    {{ parent() }}
+    <link rel="stylesheet" type="text/css" href="{{ asset("bundles/dmcsnotesmanager/css/colorpalette.css") }}"/>
+{% endblock %}
 {% block panel_heading %}
     Create a note
 {% endblock %}
@@ -13,15 +17,25 @@
         <div class="form-group">
             <div class="form-group">
                 {{ form_label(form.title, 'Note Title') }}
-                {{ form_widget(form.title, { 'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.title, { 'attr': {'class': 'form-control' }}) }}
             </div>
             <div class="form-group">
                 {{ form_label(form.content, 'Content') }}
-                {{ form_widget(form.content, { 'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.content, { 'attr': {'class': 'form-control' }}) }}
+            </div>
+            <div class="form-group">
+                <div class="btn-group">
+                    {{ form_label(form.color, 'Choose color')}}
+                    {{ form_widget(form.color, { 'attr': {'class': 'form-control' }})}}
+                    <a class="btn btn-mini dropdown-toggle" data-toggle="dropdown">Color</a>
+                    <ul class="dropdown-menu">
+                        <li><div id="color_palette"></div></li>
+                    </ul>
+                </div>
             </div>
             <div class="form-group">
                 {{ form_label(form.category, 'Category') }}
-                {{ form_widget(form.category, { 'attr': {'class': 'form-control'}}) }}
+                {{ form_widget(form.category, { 'attr': {'class': 'form-control' }}) }}
             </div>
             </br>
             <div class="row" style="width: 80%">
@@ -39,4 +53,10 @@
         $('#message').fadeOut(3000);
     </script>
     {% endif %}
+    <script src="{{ asset("bundles/dmcsnotesmanager/js/colorpalette.js") }}"></script>
+    <script type="text/javascript">
+        $('#color_palette').colorPalette().on('selectColor', function(e) {
+            $('#note_color').val(e.color);
+        });
+    </script>
 {% endblock %}

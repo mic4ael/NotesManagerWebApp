@@ -20,7 +20,8 @@
                         </a>
                     </span>
                 </span>
-                <div id="note{{ note.id }}" class="collapse alert alert-danger"> 
+                <div id="note{{ note.id }}" class="collapse alert alert-danger" 
+                    {% if note.color %} style="background-color: {{ note.color }}" {% endif %}> 
                     {{ note.content }}
                 </div>
             {% endfor %}

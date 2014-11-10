@@ -2,8 +2,10 @@
 <html>
     <head>
         <meta charset="UTF-8"/>
+        {% block styles %}
         <link rel="stylesheet" type="text/css" href="{{ asset("bundles/dmcsnotesmanager/css/bootstrap.css") }}"/>
         <link rel="stylesheet" type="text/css" href="{{ asset("bundles/dmcsnotesmanager/css/custom.css") }}"/>
+        {% endblock %}
         {% block head %}
         <title>{% block title %}{% endblock %} - Notes Manager </title>
         {% endblock %}

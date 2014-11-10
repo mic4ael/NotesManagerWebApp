@@ -30,6 +30,7 @@ class NoteType extends AbstractType
                                   ->setParameter('ownerId', $owner);
                     }
                 ))
+                ->add('color', 'text')
                 ->add('submit', 'submit');
     }
 

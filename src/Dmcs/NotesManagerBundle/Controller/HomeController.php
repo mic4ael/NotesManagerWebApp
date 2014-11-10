@@ -39,6 +39,7 @@ class HomeController extends Controller
         $form = $this->createForm(new NoteType($user->getId()), new Note, array(
             'action' => $this->generateUrl('new_note_path')
         ));
+        $blankForm = clone $form;
 
         $message = NULL;
         if ($this->getRequest()->getMethod() == 'POST') {
@@ -46,6 +47,7 @@ class HomeController extends Controller
             if ($form->isValid()) {
                 $noteService->saveNewNote($form->getData(), $user);
                 $message = 'Note saved';
+                $form = $blankForm;
             } 
         }
 
