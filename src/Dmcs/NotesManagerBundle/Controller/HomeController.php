@@ -41,16 +41,23 @@ class HomeController extends Controller
             'action' => $this->generateUrl('edit_note_path', array('noteId' => $note->getId()))
         ));
 
+        $message = NULL;
         if ($this->getRequest()->getMethod() === 'POST') {
             $form->handleRequest($this->getRequest());
             if ($form->isValid()) {
-                $noteService->updateNote($form->getData());
+                try {
+                    $noteService->updateNote($form->getData());
+                } catch(Exception $ex) {
+                    $message = $ex->getMessage();
+                }
+
+                $message = 'Note updated!';
             }
         }
 
         return $this->render('DmcsNotesManagerBundle:Home:new_note.html.twig', array(
             'form' => $form->createView(),
-            'message' => NULL
+            'message' => $message
         ));
     }
 
