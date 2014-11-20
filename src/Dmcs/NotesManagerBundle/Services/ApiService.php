@@ -5,6 +5,7 @@ namespace Dmcs\NotesManagerBundle\Services;
 use Dmcs\NotesManagerBundle\Factories\ServicesFactory;
 use Dmcs\NotesManagerBundle\Entity\Note;
 use Dmcs\NotesManagerBundle\Entity\Category;
+use Dmcs\NotesManagerBundle\Form\Model\Registration;
 
 class ApiService extends BaseService
 {
@@ -24,29 +25,43 @@ class ApiService extends BaseService
         return $this;
     }
 
-    public function getNotes($params, $controller)
+    public function setEncoderFactory($encoderFactory)
+    {
+        $this->encoderFactory = $encoderFactory;
+        return $this;
+    }
+
+    public function getNotes($params)
     {
         $noteService = $this->getService('Note');
         $notes = $noteService->findAllByOwnerId($params['ownerId']);
+        $result = [];
+        foreach ($notes as $note) {
+            $result[] = $note->jsonSerialize();
+        }
 
         return array(
             'success' => true,
-            'message' => json_encode($notes),
+            'message' => json_encode($result),
         );
     }
 
-    public function getCategories($params, $controller)
+    public function getCategories($params)
     {
         $categoryService = $this->getService('Category');
         $categories = $categoryService->findAllByOwnerId($params['ownerId']);
+        $result = [];
+        foreach ($categories as $category) {
+            $result[] = $category->jsonSerialize();
+        }
 
         return array(
             'success' => true,
-            'message' => json_encode($categories)
+            'message' => json_encode($result)
         );
     }
 
-    public function createNote($params, $controller)
+    public function createNote($params)
     {
         $user = $this->getRepository('User')->findOneById($params['ownerId']);
         if (!$user) {
@@ -65,13 +80,13 @@ class ApiService extends BaseService
         );
     }
 
-    public function createCategory($params, $controller)
+    public function createCategory($params)
     {
         $user = $this->getRepository('User')->findOneById($params['ownerId']);
         if (!$user) {
             throw new \Exception('No such user!');
         }
-        
+
         $categoryService = $this->getService('Category');
         $categoryRepository = $this->getRepository('Category');
         $category = new Category;
@@ -84,8 +99,18 @@ class ApiService extends BaseService
         );
     }
 
-    public function registerUser($params, $controller)
+    public function registerUser($params)
     {
         $userService = $this->getService('User');
+        $userService->setEncoderFactory($this->encoderFactory);
+        $regForm = new Registration;
+        $regForm->setUsername($params['username'])
+                ->setEmail($params['email'])
+                ->setPassword($params['password']);
+
+        return array(
+            'success' => true,
+            'message' => $userService->registerUser($regForm)
+        );
     }
 }

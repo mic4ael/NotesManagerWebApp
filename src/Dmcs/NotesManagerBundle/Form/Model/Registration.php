@@ -25,6 +25,7 @@ class Registration
     public function setUsername($username)
     {
         $this->username = $username;
+        return $this;
     }
 
     public function getUsername()
@@ -35,6 +36,7 @@ class Registration
     public function setEmail($email)
     {
         $this->email = $email;
+        return $this;
     }
 
     public function getEmail()
@@ -45,6 +47,7 @@ class Registration
     public function setPassword($password)
     {
         $this->password = $password;
+        return $this;
     }
 
     public function getPassword()

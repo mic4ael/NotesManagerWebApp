@@ -29,7 +29,8 @@ class ApiController extends Controller
         $params = json_decode($this->getRequest()->getContent(), true);
         $factory = $this->get('notes_manager.service.factory');
         $apiService = $factory->create('ApiService')
-                              ->setFactory($factory);
+                              ->setFactory($factory)
+                              ->setEncoderFactory($this->get('security.encoder_factory'));
         try {
             $result = call_user_func_array(array($apiService, $method), array($params, $this));
         } catch (\Exception $ex) {

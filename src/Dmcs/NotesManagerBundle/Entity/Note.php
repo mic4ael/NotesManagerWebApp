@@ -3,7 +3,6 @@
 namespace Dmcs\NotesManagerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use JsonSerializable;
 
 /**
  * Note
@@ -11,7 +10,7 @@ use JsonSerializable;
  * @ORM\Table(name="notes")
  * @ORM\Entity(repositoryClass="Dmcs\NotesManagerBundle\Entity\NoteRepository")
  */
-class Note implements JsonSerializable
+class Note
 {
     /**
      * @var integer
