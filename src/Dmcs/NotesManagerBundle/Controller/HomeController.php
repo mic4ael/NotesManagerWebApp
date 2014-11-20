@@ -41,7 +41,7 @@ class HomeController extends Controller
             'action' => $this->generateUrl('edit_note_path', array('noteId' => $note->getId()))
         ));
 
-        $message = NULL;
+        $message = null;
         if ($this->getRequest()->getMethod() === 'POST') {
             $form->handleRequest($this->getRequest());
             if ($form->isValid()) {
@@ -71,7 +71,7 @@ class HomeController extends Controller
         ));
         $blankForm = clone $form;
 
-        $message = NULL;
+        $message = null;
         if ($this->getRequest()->getMethod() == 'POST') {
             $form->handleRequest($this->getRequest());
             if ($form->isValid()) {
@@ -108,11 +108,11 @@ class HomeController extends Controller
         ));
         $blankForm = clone $form;
 
-        $message = NULL;
+        $message = null;
         if ($this->getRequest()->getMethod() == 'POST') {
             $form->handleRequest($this->getRequest());
             if ($form->isValid()) {
-                $persisted = $categoryService->saveNewCategory($form->getData(), $user);
+                $persisted = is_numeric($categoryService->saveNewCategory($form->getData(), $user));
                 $message = $persisted ? 'Category saved' : 'This name is not unique';
                 if ($persisted) $form = $blankForm;
             }

@@ -8,16 +8,17 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 class ApiController extends Controller
 {
     private $allowedMethods = array(
-        'loginUser',
         'registerUser',
-        'getNote'
+        'getNotes',
+        'getCategories',
+        'createNote',
+        'createCategory'
     );
 
-    public function routeAction($method) 
+    public function routeAction($method = null) 
     {
         $response = new JsonResponse();
-        $params = $this->getRequest()->request->all();
-        if (!in_array($method, $this->allowedMethods))
+        if (is_null($method) || !in_array($method, $this->allowedMethods))
         {
             return $response->setData(array(
                 'message' => 'Access Denied',
@@ -25,12 +26,22 @@ class ApiController extends Controller
             ));
         }
 
-        $userService = $this->get('notes_manager.user.service');
-        $response->setData(array(
-            'message' => call_user_func(array($userService, $method)),
-            'success' => true
-        ));
+        $params = json_decode($this->getRequest()->getContent(), true);
+        $factory = $this->get('notes_manager.service.factory');
+        $apiService = $factory->create('ApiService')
+                              ->setFactory($factory);
+        try {
+            $result = call_user_func_array(array($apiService, $method), array($params, $this));
+        } catch (\Exception $ex) {
+            return $response->setData(array(
+                'message' => $ex->getMessage(),
+                'success' => false
+            ));
+        }
 
-        return $response;
+        return $response->setData(array(
+            'message' => $result['message'],
+            'success' => $result['success']
+        ));
     }
 }

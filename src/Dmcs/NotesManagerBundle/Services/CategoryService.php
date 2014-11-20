@@ -23,10 +23,10 @@ class CategoryService extends BaseService
             $category->setOwner($owner);
             $this->em->persist($category);
             $this->em->flush();
-            return true;
+            return $category->getId();
         }
 
-        return false;
+        throw new \Exception('There is already a category with this name!');
     }
 
     public function deleteCategoryById($categoryId, $owner)
@@ -41,5 +41,11 @@ class CategoryService extends BaseService
             $this->em->remove($category);
             $this->em->flush();
         }
+    }
+
+    public function findAllByOwnerId($ownerId)
+    {
+        return $this->getRepository()
+                    ->findBy(array('owner' => $ownerId));
     }
 }

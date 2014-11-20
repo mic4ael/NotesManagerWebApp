@@ -34,16 +34,16 @@ class UserService extends BaseService
         throw new \Exception("Provided email or username is not unique");
     }
 
+    public function findOneByUsername($username)
+    {
+        return $this->em->getRepository('DmcsNotesManagerBundle:User')
+                    ->findOneByUsername($username);
+    }
+
     private function checkIsUnique($form)
     {
         $userRepository = $this->em->getRepository('DmcsNotesManagerBundle:User');
         return $userRepository->findOneByUsername($form->getUsername()) === null &&
                $userRepository->findOneByEmail($form->getEmail()) === null;
-    }
-
-    public function findOneByUsername($username)
-    {
-        return $this->em->getRepository('DmcsNotesManagerBundle:User')
-                    ->findOneByUsername($username);
     }
 }

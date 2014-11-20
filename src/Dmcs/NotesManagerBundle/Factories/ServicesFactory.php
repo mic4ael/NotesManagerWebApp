@@ -6,6 +6,7 @@ use Doctrine\ORM\EntityManager;
 use Dmcs\NotesManagerBundle\Services\UserService;
 use Dmcs\NotesManagerBundle\Services\NoteService;
 use Dmcs\NotesManagerBundle\Services\CategoryService;
+use Dmcs\NotesManagerBundle\Services\ApiService;
 
 final class ServicesFactory {
     private static $em;
@@ -24,9 +25,12 @@ final class ServicesFactory {
 
             case 'CategoryService':
                 return new CategoryService(self::$em);
+
+            case 'ApiService':
+                return new ApiService(self::$em);
             
             default:
-                throw new \Exception("No such service");
+                throw new \Exception("No such service " . $serviceType);
                 break;
         }
     }

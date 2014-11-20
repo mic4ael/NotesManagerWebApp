@@ -3,6 +3,7 @@
 namespace Dmcs\NotesManagerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 /**
  * Note
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="notes")
  * @ORM\Entity(repositoryClass="Dmcs\NotesManagerBundle\Entity\NoteRepository")
  */
-class Note
+class Note implements JsonSerializable
 {
     /**
      * @var integer
@@ -38,9 +39,9 @@ class Note
     /**
      * @var string
      *
-     * @ORM\Column(name="color", type="string", length=255)
+     * @ORM\Column(name="color", type="string", nullable=false, length=255)
      */
-    private $color;
+    private $color = '#0000FF';
 
     /**
      * @ORM\ManyToOne(targetEntity="Category")
@@ -154,5 +155,16 @@ class Note
     public function getOwner()
     {
         return $this->owner;
+    }
+
+    public function jsonSerialize()
+    {
+        return array(
+            'id' => $this->id,
+            'title' => $this->title,
+            'content' => $this->content,
+            'color' => $this->color,
+            'owner' => $this->owner->getId()
+        );
     }
 }

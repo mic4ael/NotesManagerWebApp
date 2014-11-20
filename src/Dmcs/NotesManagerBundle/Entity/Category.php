@@ -3,6 +3,7 @@
 namespace Dmcs\NotesManagerBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use JsonSerializable;
 
 /**
  * Category
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="categories")
  * @ORM\Entity(repositoryClass="Dmcs\NotesManagerBundle\Entity\CategoryRepository")
  */
-class Category
+class Category implements JsonSerializable
 {
     /**
      * @var integer
@@ -82,5 +83,14 @@ class Category
     public function __toString()
     {
         return $this->name;
+    }
+
+    public function jsonSerialize()
+    {
+        return array(
+            'id' => $this->id,
+            'name' => $this->name,
+            'owner' => $this->owner->getId()
+        );
     }
 }

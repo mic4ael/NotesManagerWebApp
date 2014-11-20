@@ -37,7 +37,7 @@ class NoteService extends BaseService
         $this->em->persist($note);
         $this->em->flush();
 
-        return true;
+        return $note->getId();
     }
 
     public function updateNote(Note $note)
@@ -54,5 +54,11 @@ class NoteService extends BaseService
             $this->em->remove($note);
             $this->em->flush();
         }
+    }
+
+    public function findAllByOwnerId($ownerId)
+    {
+        return $this->getRepository()
+                    ->findBy(array('owner' => $ownerId));
     }
 }
