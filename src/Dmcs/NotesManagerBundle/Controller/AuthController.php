@@ -29,7 +29,7 @@ class AuthController extends Controller
             }
 
             return $this->redirect($this->generateUrl('dmcs_notes_manager_homepage'));
-        } 
+        }
 
         return $this->forward('DmcsNotesManagerBundle:Default:index', array(
             'registrationErrors' => (string) $form->getErrors(true),

@@ -13,10 +13,11 @@ class ApiController extends Controller
         'getCategories',
         'createNote',
         'createCategory',
-        'getUser'
+        'getUser',
+        'loginUser'
     );
 
-    public function routeAction($method = null) 
+    public function routeAction($method = null)
     {
         $response = new JsonResponse();
         if (is_null($method) || !in_array($method, $this->allowedMethods))
@@ -42,7 +43,7 @@ class ApiController extends Controller
         }
 
         return $response->setData(array(
-            'message' => $result['message'],
+            'message' => $result['message'] ?: null,
             'success' => $result['success']
         ));
     }

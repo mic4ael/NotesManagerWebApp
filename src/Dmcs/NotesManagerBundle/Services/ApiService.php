@@ -118,8 +118,21 @@ class ApiService extends BaseService
     {
         $user = $this->getRepository('User')->findOneByUsername($params['username']);
         return array(
-            'success' => TRUE,
-            'message' => $user !== null ? $user->getId() : NULL
+            'success' => true,
+            'message' => $user !== null ? $user->getId() : null
+        );
+    }
+
+    public function loginUser($params)
+    {
+        $username = $params['login'];
+        $pass = $params['password'];
+        $result = $this->getService('User')
+                       ->setEncoderFactory($this->encoderFactory)
+                       ->checkPassword($username, $pass);
+        return array(
+            'success' => $result,
+            'message' => null
         );
     }
 }

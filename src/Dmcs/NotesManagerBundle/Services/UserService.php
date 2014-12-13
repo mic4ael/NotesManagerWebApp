@@ -14,6 +14,7 @@ class UserService extends BaseService
     public function setEncoderFactory(EncoderFactory $encoderFactory)
     {
         $this->encoderFactory = $encoderFactory;
+        return $this;
     }
 
     public function registerUser(Registration $form)
@@ -30,7 +31,7 @@ class UserService extends BaseService
 
             return $user->getId();
         }
-        
+
         throw new \Exception("Provided email or username is not unique");
     }
 
@@ -45,5 +46,15 @@ class UserService extends BaseService
         $userRepository = $this->em->getRepository('DmcsNotesManagerBundle:User');
         return $userRepository->findOneByUsername($form->getUsername()) === null &&
                $userRepository->findOneByEmail($form->getEmail()) === null;
+    }
+
+    public function checkPassword($username, $password)
+    {
+        $user = $this->findOneByUsername($username);
+        if ($user === null)
+            return false;
+
+        $encoder = $this->encoderFactory->getEncoder($user);
+        return $encoder->encodePassword($password, $user->getSalt()) === $user->getPassword();
     }
 }
