@@ -113,4 +113,13 @@ class ApiService extends BaseService
             'message' => $userService->registerUser($regForm)
         );
     }
+
+    public function getUser($params)
+    {
+        $user = $this->getRepository('User')->findOneByUsername($params['username']);
+        return array(
+            'success' => TRUE,
+            'message' => $user !== null ? $user->getId() : NULL
+        );
+    }
 }

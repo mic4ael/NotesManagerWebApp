@@ -12,7 +12,8 @@ class ApiController extends Controller
         'getNotes',
         'getCategories',
         'createNote',
-        'createCategory'
+        'createCategory',
+        'getUser'
     );
 
     public function routeAction($method = null) 
